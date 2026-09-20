@@ -149,6 +149,26 @@ OVERRIDE = {
     # DeepRT: cite the conference version, print the identifier that resolves (see NOTE)
     "yang2021deeprt": {"_type": "inproceedings", "year": "2021", "pages": "271--284",
                        "booktitle": BOOKTITLE["yang2021deeprt"], "howpublished": None},
+    # Crossref carries no year for these two IEEE proceedings, and stores the conference name
+    # with the year glued on ("[1992] Proceedings Real-Time Systems Symposium"). Give the
+    # proceedings their usual names and put the year in its own field.
+    "han1992distance": {"booktitle": "Proceedings of the Real-Time Systems Symposium (RTSS)",
+                        "publisher": "IEEE", "year": "1992", "pages": "300--308"},
+    "baruah1997broadcast": {"booktitle": "Proceedings of the 13th International Conference on "
+                                         "Data Engineering (ICDE)",
+                            "publisher": "IEEE", "year": "1997", "pages": "543--551"},
+    # Crossref splits this author as family "Thomas Hou", given "Y.", so the style cannot
+    # abbreviate the middle name and prints "Y. Thomas Hou". The sibling entry li2022aoi has
+    # the split right; match it so both render "Y. T. Hou".
+    "li2020aoi": {"author": "Li, Chengzhang and Li, Shaoran and Chen, Yongce and "
+                            "Hou, Y. Thomas and Lou, Wenjing",
+                  "booktitle": "IEEE INFOCOM 2020 -- IEEE Conference on Computer "
+                               "Communications"},
+    # IEEE's metadata misspells the third author as "Liamosi" (capital I for l, accent lost).
+    # The paper's own title page and DBLP give Albert Llamos\'i, Universitat de les Illes
+    # Balears. Correcting a misspelt name is not inventing content.
+    "bernat2001weaklyhard": {"author": "Bernat, Guillem and Burns, Alan and "
+                                       "Llamos{\\'\\i}, Albert"},
     # likewise for ICALP 2026 ("LIPIcs, Volume 374, ICALP 2026")
     "kanellopoulos2026finite": {"_type": "inproceedings",
                                 "booktitle": "International Colloquium on Automata, Languages, "

@@ -135,6 +135,34 @@ def last_page_fill(pdf, pages):
         shutil.rmtree(tmp, ignore_errors=True)
 
 
+def reference_year_check(latex_dir):
+    """R17: every reference must print a year, and none may print a venue whose name still has
+    the year glued to the front.
+
+    Crossref leaves `issued` empty for some older IEEE proceedings and folds the year into the
+    container name instead ("[1992] Proceedings Real-Time Systems Symposium"), so copying its
+    metadata verbatim yields an entry that looks dated but has no year field at all. A reader
+    -- or a reference-checking bot -- cannot date such an entry.
+    """
+    path = os.path.join(latex_dir, "main.bbl")
+    if not os.path.exists(path):
+        return {"error": "no main.bbl", "pass": False}
+    raw = open(path, encoding="utf-8", errors="replace").read()
+    items = re.split(r"\\bibitem\{", raw)[1:]
+    missing_year, glued = [], []
+    for it in items:
+        key = it.split("}", 1)[0]
+        body = re.sub(r"\s+", " ", it.split("}", 1)[1])
+        body = re.sub(r"doi:\S+|https?://\S+|10\.\d{4,}/\S+", " ", body)   # not a date
+        if not re.search(r"\b(19|20)\d{2}\b", body):
+            missing_year.append(key)
+        if re.search(r"\[(19|20)\d{2}\]", body):
+            glued.append(key)
+    return {"entries": len(items), "without_year": missing_year,
+            "year_glued_to_venue": glued,
+            "pass": not missing_year and not glued}
+
+
 def author_fidelity_check(latex_dir, bib, control_bbl=None):
     """R16: the surname printed for each reference's first author must be the surname the
     verified metadata records.
@@ -434,6 +462,9 @@ def main():
 
     # R16 first-author surnames on the rendered page match the verified metadata, cross-checked
     # against the previous build for the references the two have in common.
+    # R17 every reference prints a year, and no venue name carries a bracketed year
+    results["R17_reference_years"] = reference_year_check(LATEX)
+
     results["R16_author_fidelity"] = author_fidelity_check(
         LATEX, bib, os.path.join(TOPIC, "Submission_JNCA", "latex", "main.bbl"))
 
@@ -515,7 +546,7 @@ def main():
              "R6_abstract_words", "R7_highlights", "R8_sections", "R9_overfull",
              "R10_no_type3_fonts", "R11_figure_text_7pt", "R12_community_keywords",
              "R13_independence", "R14_fgcs_layout", "R15_front_matter",
-             "R16_author_fidelity")
+             "R16_author_fidelity", "R17_reference_years")
     ok = all(results[k]["pass"] for k in GATES)
     print("\n== RENDER CHECK on %s" % PDF)
     for k in GATES:

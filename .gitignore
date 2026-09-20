@@ -1,0 +1,30 @@
+# LaTeX build products
+*.aux
+*.bbl
+*.blg
+*.log
+*.out
+*.spl
+*.toc
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+latex/main.pdf
+latex/main.txt
+latex/*.log
+
+# generated locally, deliberately untracked: it names this repository's own commit
+latex/repo.tex
+
+# python
+__pycache__/
+*.pyc
+.venv/
+
+# backups and scratch
+*.bak
+*.bak_*
+*~
+
+# publication metadata: names this repository's own commit, so tracking it would be circular
+results/repo_meta.json

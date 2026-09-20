@@ -1,0 +1,5 @@
+Multi-camera edge inference is cast as a pinwheel real-time task system
+A density test sum 1/K_i <= 5/6 decides schedulability and admission in O(1)
+Pairing the test with a constructive scheduler removes every violation we saw
+Budget shaping cuts missed short events 12% out of sample at equal energy
+Consolidation saves 1.3-3.0x energy at active/idle ratio r = 10

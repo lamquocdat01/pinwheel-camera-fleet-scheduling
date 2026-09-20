@@ -1,0 +1,86 @@
+{
+ "meta": {
+  "source": "results/E1_density_sweep.json",
+  "definition": "conservatism = P(density test refuses | instance is schedulable)"
+ },
+ "bins": [
+  {
+   "bin": "(0.400,0.500]",
+   "n_decided": 66,
+   "n_schedulable": 66,
+   "n_refused_by_5_6": 0,
+   "conservatism": 0.0,
+   "unschedulable_below_5_6": 0
+  },
+  {
+   "bin": "(0.500,0.600]",
+   "n_decided": 66,
+   "n_schedulable": 66,
+   "n_refused_by_5_6": 0,
+   "conservatism": 0.0,
+   "unschedulable_below_5_6": 0
+  },
+  {
+   "bin": "(0.600,0.700]",
+   "n_decided": 66,
+   "n_schedulable": 66,
+   "n_refused_by_5_6": 0,
+   "conservatism": 0.0,
+   "unschedulable_below_5_6": 0
+  },
+  {
+   "bin": "(0.700,0.750]",
+   "n_decided": 66,
+   "n_schedulable": 66,
+   "n_refused_by_5_6": 0,
+   "conservatism": 0.0,
+   "unschedulable_below_5_6": 0
+  },
+  {
+   "bin": "(0.750,0.833]",
+   "n_decided": 66,
+   "n_schedulable": 66,
+   "n_refused_by_5_6": 0,
+   "conservatism": 0.0,
+   "unschedulable_below_5_6": 0
+  },
+  {
+   "bin": "(0.833,0.900]",
+   "n_decided": 66,
+   "n_schedulable": 66,
+   "n_refused_by_5_6": 66,
+   "conservatism": 1.0,
+   "unschedulable_below_5_6": 0
+  },
+  {
+   "bin": "(0.900,0.950]",
+   "n_decided": 65,
+   "n_schedulable": 46,
+   "n_refused_by_5_6": 46,
+   "conservatism": 1.0,
+   "unschedulable_below_5_6": 0
+  },
+  {
+   "bin": "(0.950,1.000]",
+   "n_decided": 64,
+   "n_schedulable": 9,
+   "n_refused_by_5_6": 9,
+   "conservatism": 1.0,
+   "unschedulable_below_5_6": 0
+  },
+  {
+   "bin": "(1.000,1.100]",
+   "n_decided": 63,
+   "n_schedulable": 0,
+   "n_refused_by_5_6": 0,
+   "conservatism": null,
+   "unschedulable_below_5_6": 0
+  }
+ ],
+ "overall": {
+  "n_schedulable": 451,
+  "n_refused": 121,
+  "conservatism": 0.2682926829268293,
+  "unschedulable_below_5_6_total": 0
+ }
+}

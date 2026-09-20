@@ -1,0 +1,32 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite the accompanying paper."
+title: "Pinwheel scheduling of camera fleets: corpus builder, simulator, proof checks and manuscript sources"
+abstract: >-
+  Event-corpus builder, simulator, per-theorem machine checks and manuscript sources for a
+  pinwheel schedulability test, admission control and multi-node dimensioning of camera fleets
+  on shared edge accelerators.
+authors:
+  - family-names: "Lam Quoc"
+    given-names: "Dat"
+    orcid: "https://orcid.org/0009-0004-5432-9343"
+    affiliation: "FPT School of Business and Technology, FPT University, Ho Chi Minh City, Viet Nam"
+license: MIT
+repository-code: "https://github.com/lamquocdat01/pinwheel-camera-fleet-scheduling"
+keywords:
+  - real-time scheduling
+  - pinwheel scheduling
+  - schedulability test
+  - admission control
+  - resource management
+  - edge computing
+  - video analytics
+preferred-citation:
+  type: article
+  title: >-
+    Real-Time Scheduling of Camera Fleets on Shared Edge Accelerators: A Pinwheel
+    Schedulability Test, Admission Control and Multi-Node Dimensioning
+  authors:
+    - family-names: "Lam Quoc"
+      given-names: "Dat"
+      orcid: "https://orcid.org/0009-0004-5432-9343"
+  year: 2026

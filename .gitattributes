@@ -1,0 +1,6 @@
+# No line-ending conversion, anywhere.
+#
+# The manuscript prints the SHA-256 of data/event_corpus.csv and that hash has to be
+# reproducible from a fresh clone on any platform. If Git rewrote LF to CRLF on checkout the
+# working-tree file would no longer hash to the value in the paper.
+* -text

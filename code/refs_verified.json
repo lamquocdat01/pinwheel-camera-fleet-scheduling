@@ -1,0 +1,954 @@
+{
+ "holte1989pinwheel": {
+  "key": "holte1989pinwheel",
+  "expect_fragment": "pinwheel",
+  "doi": "10.1109/HICSS.1989.48075",
+  "arxiv": null,
+  "status": "OK",
+  "sources": {
+   "crossref": {
+    "title": "The pinwheel: a real-time scheduling problem",
+    "container": "[1989] Proceedings of the Twenty-Second Annual Hawaii International Conference on System Sciences. Volume II: Software Track",
+    "year": 1989,
+    "volume": null,
+    "issue": null,
+    "page": "693-702 vol.2",
+    "type": "proceedings-article",
+    "publisher": "IEEE",
+    "authors": [
+     "Holte, R.",
+     "Mok, A.",
+     "Rosier, L.",
+     "Tulchinsky, I.",
+     "Varvel, D."
+    ],
+    "alt_id": null
+   }
+  },
+  "title_match": true
+ },
+ "holte1992two": {
+  "key": "holte1992two",
+  "expect_fragment": "two distinct numbers",
+  "doi": "10.1016/0304-3975(92)90365-M",
+  "arxiv": null,
+  "status": "OK",
+  "sources": {
+   "crossref": {
+    "title": "Pinwheel scheduling with two distinct numbers",
+    "container": "Theoretical Computer Science",
+    "year": 1992,
+    "volume": "100",
+    "issue": "1",
+    "page": "105-135",
+    "type": "journal-article",
+    "publisher": "Elsevier BV",
+    "authors": [
+     "Holte, Robert",
+     "Rosier, Louis",
+     "Tulchinsky, Igor",
+     "Varvel, Donald"
+    ],
+    "alt_id": [
+     "030439759290365M"
+    ]
+   }
+  },
+  "title_match": true
+ },
+ "chanchin1992general": {
+  "key": "chanchin1992general",
+  "expect_fragment": "double-integer reduction",
+  "doi": "10.1109/12.144627",
+  "arxiv": null,
+  "status": "OK",
+  "sources": {
+   "crossref": {
+    "title": "General schedulers for the pinwheel problem based on double-integer reduction",
+    "container": "IEEE Transactions on Computers",
+    "year": 1992,
+    "volume": "41",
+    "issue": "6",
+    "page": "755-768",
+    "type": "journal-article",
+    "publisher": "Institute of Electrical and Electronics Engineers (IEEE)",
+    "authors": [
+     "Chan, M.Y.",
+     "Chin, F.Y.L."
+    ],
+    "alt_id": null
+   }
+  },
+  "title_match": true
+ },
+ "chanchin1993schedulers": {
+  "key": "chanchin1993schedulers",
+  "expect_fragment": "larger classes of pinwheel",
+  "doi": "10.1007/BF01187034",
+  "arxiv": null,
+  "status": "OK",
+  "sources": {
+   "crossref": {
+    "title": "Schedulers for larger classes of pinwheel instances",
+    "container": "Algorithmica",
+    "year": 1993,
+    "volume": "9",
+    "issue": "5",
+    "page": "425-462",
+    "type": "journal-article",
+    "publisher": "Springer Science and Business Media LLC",
+    "authors": [
+     "Chan, M. Y.",
+     "Chin, Francis"
+    ],
+    "alt_id": [
+     "BF01187034"
+    ]
+   }
+  },
+  "title_match": true
+ },
+ "linlin1997three": {
+  "key": "linlin1997three",
+  "expect_fragment": "three distinct numbers",
+  "doi": "10.1007/PL00009181",
+  "arxiv": null,
+  "status": "OK",
+  "sources": {
+   "crossref": {
+    "title": "A Pinwheel Scheduler for Three Distinct Numbers with a Tight Schedulability Bound",
+    "container": "Algorithmica",
+    "year": 1997,
+    "volume": "19",
+    "issue": "4",
+    "page": "411-426",
+    "type": "journal-article",
+    "publisher": "Springer Science and Business Media LLC",
+    "authors": [
+     "Lin, Shun-Shii",
+     "Lin, Kwei-Jay"
+    ],
+    "alt_id": [
+     "19n4p411"
+    ]
+   }
+  },
+  "title_match": true
+ },
+ "fishburn2002densities": {
+  "key": "fishburn2002densities",
+  "expect_fragment": "achievable densities",
+  "doi": "10.1007/s00453-002-0938-9",
+  "arxiv": null,
+  "status": "OK",
+  "sources": {
+   "crossref": {
+    "title": "Pinwheel Scheduling: Achievable Densities",
+    "container": "Algorithmica",
+    "year": 2002,
+    "volume": "34",
+    "issue": "1",
+    "page": "14-38",
+    "type": "journal-article",
+    "publisher": "Springer Science and Business Media LLC",
+    "authors": [
+     "Fishburn",
+     "Lagarias"
+    ],
+    "alt_id": [
+     "938"
+    ]
+   }
+  },
+  "title_match": true
+ },
+ "kawamura2024stoc": {
+  "key": "kawamura2024stoc",
+  "expect_fragment": "density threshold conjecture",
+  "doi": "10.1145/3618260.3649757",
+  "arxiv": null,
+  "status": "OK",
+  "sources": {
+   "crossref": {
+    "title": "Proof of the Density Threshold Conjecture for Pinwheel Scheduling",
+    "container": "Proceedings of the 56th Annual ACM Symposium on Theory of Computing",
+    "year": 2024,
+    "volume": null,
+    "issue": null,
+    "page": "1816-1819",
+    "type": "proceedings-article",
+    "publisher": "ACM",
+    "authors": [
+     "Kawamura, Akitoshi"
+    ],
+    "alt_id": [
+     "10.1145/3618260.3649757",
+     "10.1145/3618260"
+    ]
+   }
+  },
+  "title_match": true
+ },
+ "kawamura2026pnas": {
+  "key": "kawamura2026pnas",
+  "expect_fragment": "density threshold conjecture",
+  "doi": "10.1073/pnas.2530214123",
+  "arxiv": null,
+  "status": "OK",
+  "sources": {
+   "crossref": {
+    "title": "Proof of the density threshold conjecture for pinwheel scheduling",
+    "container": "Proceedings of the National Academy of Sciences",
+    "year": 2026,
+    "volume": "123",
+    "issue": "32",
+    "page": null,
+    "type": "journal-article",
+    "publisher": "National Academy of Sciences",
+    "authors": [
+     "Kawamura, Akitoshi"
+    ],
+    "alt_id": [
+     "10.1073/pnas.2530214123"
+    ]
+   }
+  },
+  "title_match": true
+ },
+ "kobayashi2025isaac": {
+  "key": "kobayashi2025isaac",
+  "expect_fragment": "Fixed Parameter Tractability",
+  "doi": "10.4230/LIPIcs.ISAAC.2025.47",
+  "arxiv": null,
+  "status": "OK",
+  "sources": {
+   "crossref": "ERR HTTP Error 404: Not Found",
+   "doi.org": "@inproceedings{https://doi.org/10.4230/lipics.isaac.2025.47,\n  doi = {10.4230/LIPICS.ISAAC.2025.47},\n  url = {https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.ISAAC.2025.47},\n  author = {Kobayashi, Yusuke and Lin, Bingkai},\n  keywords = {Pinwheel Scheduling, Polynomial-time Solvability, Packing and Covering, Fixed Parameter Algorithms, Theory of computation \u2192 Design and analysis of algorithms, Theory of computation \u2192 Computational complexity and cryptography},\n  language = {en},\n  title = {Hardness and Fixed Parameter Tractability for Pinwheel Scheduling Problems},\n  journal = {LIPIcs, Volume 359, ISAAC 2025},\n  volume = {359},\n  pages = {47:1-47:15},\n  publisher = {Schloss Dagstuhl \u2013 Leibniz-Zentrum f\u00fcr Informatik},\n  year = {2025},\n  copyright = {Creative Commons Attribution 4.0 International license}\n}\n"
+  },
+  "title_match": true
+ },
+ "kusano2026sofsem": {
+  "key": "kusano2026sofsem",
+  "expect_fragment": "Density-Based Heuristics",
+  "doi": "10.1007/978-3-032-17801-5_46",
+  "arxiv": null,
+  "status": "OK",
+  "sources": {
+   "crossref": {
+    "title": "Limitations of\u00a0Density-Based Heuristics and\u00a0an\u00a0Alternative Approach for\u00a0Pinwheel Scheduling with\u00a0Durations",
+    "container": "Lecture Notes in Computer Science",
+    "year": 2026,
+    "volume": null,
+    "issue": null,
+    "page": "634-647",
+    "type": "book-chapter",
+    "publisher": "Springer Nature Switzerland",
+    "authors": [
+     "Kusano, Yosuke"
+    ],
+    "alt_id": null
+   }
+  },
+  "title_match": true
+ },
+ "fujiwara2026real": {
+  "key": "fujiwara2026real",
+  "expect_fragment": "Real Periods",
+  "doi": null,
+  "arxiv": "2510.24068",
+  "status": "OK",
+  "sources": {
+   "arxiv": {
+    "title": "Pinwheel Scheduling with Real Periods",
+    "authors": [
+     "Fujiwara, Hiroshi",
+     "Miyagi, Kota",
+     "Ouchi, Katsuhisa"
+    ],
+    "published": "2025",
+    "doi": null,
+    "journal_ref": null,
+    "id": "https://arxiv.org/abs/2510.24068"
+   },
+   "arxiv_via": "datacite"
+  },
+  "datacite_doi": "10.48550/arXiv.2510.24068",
+  "title_match": true
+ },
+ "kanellopoulos2025kvisits": {
+  "key": "kanellopoulos2025kvisits",
+  "expect_fragment": "k-Visits",
+  "doi": null,
+  "arxiv": "2507.11681",
+  "status": "OK",
+  "sources": {
+   "arxiv": {
+    "title": "Finite Pinwheel Scheduling: the k-Visits Problem",
+    "authors": [
+     "Kanellopoulos, Sotiris",
+     "Pergaminelis, Christos",
+     "Kokkou, Maria",
+     "Markou, Euripides",
+     "Pagourtzis, Aris"
+    ],
+    "published": "2025",
+    "doi": null,
+    "journal_ref": null,
+    "id": "https://arxiv.org/abs/2507.11681"
+   },
+   "arxiv_via": "datacite"
+  },
+  "datacite_doi": "10.48550/arXiv.2507.11681",
+  "title_match": true
+ },
+ "kanellopoulos2026finite": {
+  "key": "kanellopoulos2026finite",
+  "expect_fragment": "Pinwheel Scheduling Variants",
+  "doi": "10.4230/LIPIcs.ICALP.2026.122",
+  "arxiv": null,
+  "status": "OK",
+  "sources": {
+   "crossref": "ERR HTTP Error 404: Not Found",
+   "doi.org": "@inproceedings{https://doi.org/10.4230/lipics.icalp.2026.122,\n  doi = {10.4230/LIPICS.ICALP.2026.122},\n  url = {https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.ICALP.2026.122},\n  author = {Kanellopoulos, Sotiris and Mitropoulos, Giorgos and Pergaminelis, Christos and Tolias, Thanos},\n  keywords = {Pinwheel Scheduling, Perpetual Scheduling, NP-Completeness, Parameterized Complexity, Theory of computation \u2192 Problems, reductions and completeness},\n  language = {en},\n  title = {Hardness, Tractability and Density Thresholds of Finite Pinwheel Scheduling Variants},\n  journal = {LIPIcs, Volume 374, ICALP 2026},\n  volume = {374},\n  pages = {122:1-122:23},\n  publisher = {Schloss Dagstuhl \u2013 Leibniz-Zentrum f\u00fcr Informatik},\n  year = {2026},\n  copyright = {Creative Commons Attribution 4.0 International license}\n}\n"
+  },
+  "title_match": true
+ },
+ "kawamura2025covering": {
+  "key": "kawamura2025covering",
+  "expect_fragment": "Pinwheel Covering",
+  "doi": null,
+  "arxiv": "2510.06533",
+  "status": "OK",
+  "sources": {
+   "arxiv": {
+    "title": "A Computer-Assisted Proof of the Optimal Density Bound for Pinwheel Covering",
+    "authors": [
+     "Kawamura, Akitoshi",
+     "Kobayashi, Yusuke"
+    ],
+    "published": "2025",
+    "doi": null,
+    "journal_ref": null,
+    "id": "https://arxiv.org/abs/2510.06533"
+   },
+   "arxiv_via": "datacite"
+  },
+  "datacite_doi": "10.48550/arXiv.2510.06533",
+  "title_match": true
+ },
+ "jacobs2014windows": {
+  "key": "jacobs2014windows",
+  "expect_fragment": "windows scheduling",
+  "doi": null,
+  "arxiv": "1410.7237",
+  "status": "OK",
+  "sources": {
+   "arxiv": {
+    "title": "A New Perspective on the Windows Scheduling Problem",
+    "authors": [
+     "Jacobs, Tobias",
+     "Longo, Salvatore"
+    ],
+    "published": "2014",
+    "doi": null,
+    "journal_ref": null,
+    "id": "https://arxiv.org/abs/1410.7237"
+   },
+   "arxiv_via": "datacite"
+  },
+  "datacite_doi": "10.48550/arXiv.1410.7237",
+  "title_match": true
+ },
+ "gasieniec2024bamboo": {
+  "key": "gasieniec2024bamboo",
+  "expect_fragment": "Perpetual maintenance",
+  "doi": "10.1016/j.jcss.2023.103476",
+  "arxiv": null,
+  "status": "OK",
+  "sources": {
+   "crossref": {
+    "title": "Perpetual maintenance of machines with different urgency requirements",
+    "container": "Journal of Computer and System Sciences",
+    "year": 2024,
+    "volume": "139",
+    "issue": null,
+    "page": "103476",
+    "type": "journal-article",
+    "publisher": "Elsevier BV",
+    "authors": [
+     "G\u0105sieniec, Leszek",
+     "Jurdzi\u0144ski, Tomasz",
+     "Klasing, Ralf",
+     "Levcopoulos, Christos",
+     "Lingas, Andrzej",
+     "Min, Jie",
+     "Radzik, Tomasz"
+    ],
+    "alt_id": [
+     "S0022000023000818"
+    ]
+   }
+  },
+  "title_match": true
+ },
+ "liulayland1973": {
+  "key": "liulayland1973",
+  "expect_fragment": "Hard-Real-Time",
+  "doi": "10.1145/321738.321743",
+  "arxiv": null,
+  "status": "OK",
+  "sources": {
+   "crossref": {
+    "title": "Scheduling Algorithms for Multiprogramming in a Hard-Real-Time Environment",
+    "container": "Journal of the ACM",
+    "year": 1973,
+    "volume": "20",
+    "issue": "1",
+    "page": "46-61",
+    "type": "journal-article",
+    "publisher": "Association for Computing Machinery (ACM)",
+    "authors": [
+     "Liu, C. L.",
+     "Layland, James W."
+    ],
+    "alt_id": [
+     "10.1145/321738.321743"
+    ]
+   }
+  },
+  "title_match": true
+ },
+ "dosa2007ffd": {
+  "key": "dosa2007ffd",
+  "expect_fragment": "First Fit Decreasing",
+  "doi": "10.1007/978-3-540-74450-4_1",
+  "arxiv": null,
+  "status": "OK",
+  "sources": {
+   "crossref": {
+    "title": "The Tight Bound of First Fit Decreasing Bin-Packing Algorithm Is FFD(I)\u2009\u2264\u200911/9OPT(I)\u2009+\u20096/9",
+    "container": "Lecture Notes in Computer Science",
+    "year": null,
+    "volume": null,
+    "issue": null,
+    "page": "1-11",
+    "type": "book-chapter",
+    "publisher": "Springer Berlin Heidelberg",
+    "authors": [
+     "D\u00f3sa, Gy\u00f6rgy"
+    ],
+    "alt_id": null
+   }
+  },
+  "title_match": true
+ },
+ "liu2023attention": {
+  "key": "liu2023attention",
+  "expect_fragment": "attention scheduling",
+  "doi": "10.1007/s11241-023-09396-z",
+  "arxiv": null,
+  "status": "OK",
+  "sources": {
+   "crossref": {
+    "title": "Generalized self-cueing real-time attention scheduling with intermittent inspection and image resizing",
+    "container": "Real-Time Systems",
+    "year": 2023,
+    "volume": "59",
+    "issue": "2",
+    "page": "302-343",
+    "type": "journal-article",
+    "publisher": "Springer Science and Business Media LLC",
+    "authors": [
+     "Liu, Shengzhong",
+     "Fu, Xinzhe",
+     "Hu, Yigong",
+     "Wigness, Maggie",
+     "David, Philip",
+     "Yao, Shuochao",
+     "Sha, Lui",
+     "Abdelzaher, Tarek"
+    ],
+    "alt_id": [
+     "9396"
+    ]
+   }
+  },
+  "title_match": true
+ },
+ "liu2026multitenant": {
+  "key": "liu2026multitenant",
+  "expect_fragment": "Multi-Tenant DNN Inference",
+  "doi": null,
+  "arxiv": "2602.11004",
+  "status": "OK",
+  "sources": {
+   "arxiv": {
+    "title": "Enhancing Predictability of Multi-Tenant DNN Inference for Autonomous Vehicles' Perception",
+    "authors": [
+     "Liu, Liangkai",
+     "Shin, Kang G.",
+     "Lee, Jinkyu",
+     "Yang, Chengmo",
+     "Shi, Weisong"
+    ],
+    "published": "2026",
+    "doi": null,
+    "journal_ref": null,
+    "id": "https://arxiv.org/abs/2602.11004"
+   },
+   "arxiv_via": "datacite"
+  },
+  "datacite_doi": "10.48550/arXiv.2602.11004",
+  "title_match": true
+ },
+ "lee2024imcpng": {
+  "key": "lee2024imcpng",
+  "expect_fragment": "imprecise mixed-criticality",
+  "doi": "10.1016/j.future.2024.06.015",
+  "arxiv": null,
+  "status": "OK",
+  "sources": {
+   "crossref": {
+    "title": "IMC-PnG: Maximizing runtime performance and timing guarantee for imprecise mixed-criticality real-time scheduling",
+    "container": "Future Generation Computer Systems",
+    "year": 2024,
+    "volume": "160",
+    "issue": null,
+    "page": "406-419",
+    "type": "journal-article",
+    "publisher": "Elsevier BV",
+    "authors": [
+     "Lee, Jaewoo",
+     "Lee, Jinkyu"
+    ],
+    "alt_id": [
+     "S0167739X24003169"
+    ]
+   }
+  },
+  "title_match": true
+ },
+ "peng2024inferfair": {
+  "key": "peng2024inferfair",
+  "expect_fragment": "InferFair",
+  "doi": "10.1016/j.future.2023.08.020",
+  "arxiv": null,
+  "status": "OK",
+  "sources": {
+   "crossref": {
+    "title": "InferFair: Towards QoS-aware scheduling for performance isolation guarantee in heterogeneous model serving systems",
+    "container": "Future Generation Computer Systems",
+    "year": 2024,
+    "volume": "150",
+    "issue": null,
+    "page": "10-20",
+    "type": "journal-article",
+    "publisher": "Elsevier BV",
+    "authors": [
+     "Peng, Yaqiong",
+     "Peng, Haocheng"
+    ],
+    "alt_id": [
+     "S0167739X23003187"
+    ]
+   }
+  },
+  "title_match": true
+ },
+ "raj2025uavfleets": {
+  "key": "raj2025uavfleets",
+  "expect_fragment": "DNN inferencing on edge and cloud",
+  "doi": "10.1016/j.future.2025.107874",
+  "arxiv": null,
+  "status": "OK",
+  "sources": {
+   "crossref": {
+    "title": "Adaptive heuristics for scheduling DNN inferencing on edge and cloud for personalized UAV fleets",
+    "container": "Future Generation Computer Systems",
+    "year": 2025,
+    "volume": "173",
+    "issue": null,
+    "page": "107874",
+    "type": "journal-article",
+    "publisher": "Elsevier BV",
+    "authors": [
+     "Raj, Suman",
+     "Mittal, Radhika",
+     "Gupta, Harshil",
+     "Simmhan, Yogesh"
+    ],
+    "alt_id": [
+     "S0167739X25001694"
+    ]
+   }
+  },
+  "title_match": true
+ },
+ "zhang2026prta": {
+  "key": "zhang2026prta",
+  "expect_fragment": "preemption threshold scheduling",
+  "doi": "10.1016/j.future.2025.108363",
+  "arxiv": null,
+  "status": "OK",
+  "sources": {
+   "crossref": {
+    "title": "Probabilistic response time analysis for preemption threshold scheduling in real-time systems",
+    "container": "Future Generation Computer Systems",
+    "year": 2026,
+    "volume": "179",
+    "issue": null,
+    "page": "108363",
+    "type": "journal-article",
+    "publisher": "Elsevier BV",
+    "authors": [
+     "Zhang, Jin-Long",
+     "Zhang, Yi-Wen"
+    ],
+    "alt_id": [
+     "S0167739X25006570"
+    ]
+   }
+  },
+  "title_match": true
+ },
+ "lee2025timing": {
+  "key": "lee2025timing",
+  "expect_fragment": "Timing guarantees for inference",
+  "doi": "10.1007/s11241-025-09445-9",
+  "arxiv": null,
+  "status": "OK",
+  "sources": {
+   "crossref": {
+    "title": "Timing guarantees for inference of AI models in embedded systems",
+    "container": "Real-Time Systems",
+    "year": 2025,
+    "volume": "61",
+    "issue": "2",
+    "page": "259-267",
+    "type": "journal-article",
+    "publisher": "Springer Science and Business Media LLC",
+    "authors": [
+     "Lee, Seunghoon",
+     "Kang, Woosung",
+     "Bertogna, Marko",
+     "Chwa, Hoon Sung",
+     "Lee, Jinkyu"
+    ],
+    "alt_id": [
+     "9445"
+    ]
+   }
+  },
+  "title_match": true
+ },
+ "li2022aoi": {
+  "key": "li2022aoi",
+  "expect_fragment": "Age of Information Guarantee",
+  "doi": "10.1109/TNET.2022.3156866",
+  "arxiv": null,
+  "status": "OK",
+  "sources": {
+   "crossref": {
+    "title": "Scheduling With Age of Information Guarantee",
+    "container": "IEEE/ACM Transactions on Networking",
+    "year": 2022,
+    "volume": "30",
+    "issue": "5",
+    "page": "2046-2059",
+    "type": "journal-article",
+    "publisher": "Institute of Electrical and Electronics Engineers (IEEE)",
+    "authors": [
+     "Li, Chengzhang",
+     "Liu, Qingyu",
+     "Li, Shaoran",
+     "Chen, Yongce",
+     "Hou, Y. Thomas",
+     "Lou, Wenjing",
+     "Kompella, Sastry"
+    ],
+    "alt_id": null
+   }
+  },
+  "title_match": true
+ },
+ "liang2024splitstream": {
+  "key": "liang2024splitstream",
+  "expect_fragment": "SplitStream",
+  "doi": "10.1016/j.jnca.2024.103866",
+  "arxiv": null,
+  "status": "OK",
+  "sources": {
+   "crossref": {
+    "title": "SplitStream: Distributed and workload-adaptive video analytics at the edge",
+    "container": "Journal of Network and Computer Applications",
+    "year": 2024,
+    "volume": "225",
+    "issue": null,
+    "page": "103866",
+    "type": "journal-article",
+    "publisher": "Elsevier BV",
+    "authors": [
+     "Liang, Yu",
+     "Zhang, Sheng",
+     "Wu, Jie"
+    ],
+    "alt_id": [
+     "S1084804524000432"
+    ]
+   }
+  },
+  "title_match": true
+ },
+ "queiroz2024flexdo": {
+  "key": "queiroz2024flexdo",
+  "expect_fragment": "offload DAG applications",
+  "doi": "10.1016/j.jnca.2023.103791",
+  "arxiv": null,
+  "status": "OK",
+  "sources": {
+   "crossref": {
+    "title": "A flexible algorithm to offload DAG applications for edge computing",
+    "container": "Journal of Network and Computer Applications",
+    "year": 2024,
+    "volume": "222",
+    "issue": null,
+    "page": "103791",
+    "type": "journal-article",
+    "publisher": "Elsevier BV",
+    "authors": [
+     "de Queiroz, Gabriel F.C.",
+     "de Rezende, Jos\u00e9 F.",
+     "Barbosa, Valmir C."
+    ],
+    "alt_id": [
+     "S1084804523002102"
+    ]
+   }
+  },
+  "title_match": true
+ },
+ "leonardi2025racble": {
+  "key": "leonardi2025racble",
+  "expect_fragment": "admission control",
+  "doi": "10.1016/j.jnca.2025.104232",
+  "arxiv": null,
+  "status": "OK",
+  "sources": {
+   "crossref": {
+    "title": "A runtime admission control for industrial IoT over bluetooth low energy mesh networks",
+    "container": "Journal of Network and Computer Applications",
+    "year": 2025,
+    "volume": "242",
+    "issue": null,
+    "page": "104232",
+    "type": "journal-article",
+    "publisher": "Elsevier BV",
+    "authors": [
+     "Leonardi, Luca",
+     "Lo Bello, Lucia",
+     "Patti, Gaetano"
+    ],
+    "alt_id": [
+     "S1084804525001298"
+    ]
+   }
+  },
+  "title_match": true
+ },
+ "binh2024barrier": {
+  "key": "binh2024barrier",
+  "expect_fragment": "barrier coverage",
+  "doi": "10.1016/j.jnca.2024.103985",
+  "arxiv": null,
+  "status": "OK",
+  "sources": {
+   "crossref": {
+    "title": "An efficient exact method with polynomial time-complexity to achieve <mml:math xmlns:mml=\"http://www.w3.org/1998/Math/MathML\" altimg=\"si412.svg\" display=\"inline\" id=\"d1e2453\"><mml:mi>k</mml:mi></mml:math>-strong barrier coverage in heterogeneous wireless multimedia sensor networks",
+    "container": "Journal of Network and Computer Applications",
+    "year": 2024,
+    "volume": "231",
+    "issue": null,
+    "page": "103985",
+    "type": "journal-article",
+    "publisher": "Elsevier BV",
+    "authors": [
+     "Binh, Nguyen Thi My",
+     "Binh, Huynh Thi Thanh",
+     "Luong, Ho Viet Duc",
+     "Long, Nguyen Tien",
+     "Van Chien, Trinh"
+    ],
+    "alt_id": [
+     "S1084804524001620"
+    ]
+   }
+  },
+  "title_match": true
+ },
+ "cheng2026cpbis": {
+  "key": "cheng2026cpbis",
+  "expect_fragment": "discovery-latency",
+  "doi": "10.1016/j.jnca.2026.104539",
+  "arxiv": null,
+  "status": "OK",
+  "sources": {
+   "crossref": {
+    "title": "CPBIS: Achieving theoretical minimum discovery-latency in Offline Finding Network via Certain Proportion Broadcast Intervals Screening mechanism",
+    "container": "Journal of Network and Computer Applications",
+    "year": 2026,
+    "volume": "253",
+    "issue": null,
+    "page": "104539",
+    "type": "journal-article",
+    "publisher": "Elsevier BV",
+    "authors": [
+     "Feng, Cheng",
+     "Zhang, Li",
+     "Xia, Tian",
+     "Zhang, Hongyuan"
+    ],
+    "alt_id": [
+     "S1084804526001141"
+    ]
+   }
+  },
+  "title_match": true
+ },
+ "zhou2023comst": {
+  "key": "zhou2023comst",
+  "expect_fragment": "Edge",
+  "doi": "10.1109/COMST.2023.3323091",
+  "arxiv": null,
+  "status": "OK",
+  "sources": {
+   "crossref": {
+    "title": "Edge Video Analytics: A Survey on Applications, Systems and Enabling Techniques",
+    "container": "IEEE Communications Surveys &amp; Tutorials",
+    "year": 2023,
+    "volume": "25",
+    "issue": "4",
+    "page": "2951-2982",
+    "type": "journal-article",
+    "publisher": "Institute of Electrical and Electronics Engineers (IEEE)",
+    "authors": [
+     "Xu, Renjie",
+     "Razavi, Saiedeh",
+     "Zheng, Rong"
+    ],
+    "alt_id": null
+   }
+  },
+  "title_match": true
+ },
+ "zou2023rtgpu": {
+  "key": "zou2023rtgpu",
+  "expect_fragment": "RTGPU",
+  "doi": "10.1109/TPDS.2023.3235439",
+  "arxiv": null,
+  "status": "OK",
+  "sources": {
+   "crossref": {
+    "title": "RTGPU: Real-Time GPU Scheduling of Hard Deadline Parallel Tasks With Fine-Grain Utilization",
+    "container": "IEEE Transactions on Parallel and Distributed Systems",
+    "year": 2023,
+    "volume": "34",
+    "issue": "5",
+    "page": "1450-1465",
+    "type": "journal-article",
+    "publisher": "Institute of Electrical and Electronics Engineers (IEEE)",
+    "authors": [
+     "Zou, An",
+     "Li, Jing",
+     "Gill, Christopher D.",
+     "Zhang, Xuan"
+    ],
+    "alt_id": null
+   }
+  },
+  "title_match": true
+ },
+ "cdnet2014": {
+  "key": "cdnet2014",
+  "expect_fragment": "CDnet 2014",
+  "doi": "10.1109/CVPRW.2014.126",
+  "arxiv": null,
+  "status": "OK",
+  "sources": {
+   "crossref": {
+    "title": "CDnet 2014: An Expanded Change Detection Benchmark Dataset",
+    "container": "2014 IEEE Conference on Computer Vision and Pattern Recognition Workshops",
+    "year": 2014,
+    "volume": null,
+    "issue": null,
+    "page": "393-400",
+    "type": "proceedings-article",
+    "publisher": "IEEE",
+    "authors": [
+     "Wang, Yi",
+     "Jodoin, Pierre-Marc",
+     "Porikli, Fatih",
+     "Konrad, Janusz",
+     "Benezeth, Yannick",
+     "Ishwar, Prakash"
+    ],
+    "alt_id": null
+   }
+  },
+  "title_match": true
+ },
+ "lasiesta2016": {
+  "key": "lasiesta2016",
+  "expect_fragment": "LASIESTA",
+  "doi": "10.1016/j.cviu.2016.08.005",
+  "arxiv": null,
+  "status": "OK",
+  "sources": {
+   "crossref": {
+    "title": "Labeled dataset for integral evaluation of moving object detection algorithms: LASIESTA",
+    "container": "Computer Vision and Image Understanding",
+    "year": 2016,
+    "volume": "152",
+    "issue": null,
+    "page": "103-117",
+    "type": "journal-article",
+    "publisher": "Elsevier BV",
+    "authors": [
+     "Cuevas, Carlos",
+     "Y\u00e1\u00f1ez, Eva Mar\u00eda",
+     "Garc\u00eda, Narciso"
+    ],
+    "alt_id": [
+     "S1077314216301138"
+    ]
+   }
+  },
+  "title_match": true
+ },
+ "bmc2012": {
+  "key": "bmc2012",
+  "expect_fragment": "background extraction",
+  "doi": "10.1007/978-3-642-37410-4_25",
+  "arxiv": null,
+  "status": "OK",
+  "sources": {
+   "crossref": {
+    "title": "A Benchmark Dataset for Outdoor Foreground/Background Extraction",
+    "container": "Lecture Notes in Computer Science",
+    "year": 2013,
+    "volume": null,
+    "issue": null,
+    "page": "291-300",
+    "type": "book-chapter",
+    "publisher": "Springer Berlin Heidelberg",
+    "authors": [
+     "Vacavant, Antoine",
+     "Chateau, Thierry",
+     "Wilhelm, Alexis",
+     "Lequi\u00e8vre, Laurent"
+    ],
+    "alt_id": null
+   }
+  },
+  "title_match": true
+ }
+}

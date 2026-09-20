@@ -1,0 +1,13 @@
+{
+ "n_videos": 121,
+ "n_events": 3713,
+ "n_frames": 166589,
+ "datasets": {
+  "CDnet2014": 53,
+  "LASIESTA": 48,
+  "BMC": 20
+ },
+ "source": {
+  "event_corpus.csv": "902d3c552c1f731df010b7a27ae446c54495f272965e333c93b9be2b683a080d"
+ }
+}

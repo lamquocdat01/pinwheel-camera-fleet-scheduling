@@ -30,7 +30,9 @@ REFS = [
     ("kawamura2026pnas", "density threshold conjecture", "10.1073/pnas.2530214123", None),
     ("kobayashi2025isaac", "Fixed Parameter Tractability", "10.4230/LIPIcs.ISAAC.2025.47", None),
     ("kusano2026sofsem", "Density-Based Heuristics", "10.1007/978-3-032-17801-5_46", None),
-    ("fujiwara2026real", "Real Periods", None, "2510.24068"),
+    # Published in DMTCS since the last round (vol. 28:4, SOFSEM 2026 special issue,
+    # article 17657); cite the journal version, keeping the arXiv identifier in the note.
+    ("fujiwara2026real", "Real Periods", "10.46298/dmtcs.17657", None),
     ("kanellopoulos2025kvisits", "k-Visits", None, "2507.11681"),
     # published at ICALP 2026 (LIPIcs vol. 374) since the last round; cite the proceedings
     # version, keeping the arXiv identifier in the note.

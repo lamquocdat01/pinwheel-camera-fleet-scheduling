@@ -254,25 +254,27 @@
  "fujiwara2026real": {
   "key": "fujiwara2026real",
   "expect_fragment": "Real Periods",
-  "doi": null,
-  "arxiv": "2510.24068",
+  "doi": "10.46298/dmtcs.17657",
+  "arxiv": null,
   "status": "OK",
   "sources": {
-   "arxiv": {
+   "crossref": {
     "title": "Pinwheel Scheduling with Real Periods",
+    "container": "Discrete Mathematics &amp; Theoretical Computer Science",
+    "year": 2026,
+    "volume": "vol. 28:4, SOFSEM 2026",
+    "issue": "Special issues",
+    "page": null,
+    "type": "journal-article",
+    "publisher": "Centre pour la Communication Scientifique Directe (CCSD)",
     "authors": [
      "Fujiwara, Hiroshi",
      "Miyagi, Kota",
      "Ouchi, Katsuhisa"
     ],
-    "published": "2025",
-    "doi": null,
-    "journal_ref": null,
-    "id": "https://arxiv.org/abs/2510.24068"
-   },
-   "arxiv_via": "datacite"
+    "alt_id": null
+   }
   },
-  "datacite_doi": "10.48550/arXiv.2510.24068",
   "title_match": true
  },
  "kanellopoulos2025kvisits": {

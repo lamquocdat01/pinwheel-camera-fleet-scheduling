@@ -49,8 +49,9 @@ BOOKTITLE = {
     "dosa2007ffd": "Combinatorics, Algorithms, Probabilistic and Experimental Methodologies (ESCAPE), LNCS 4614",
 }
 NOTE = {
-    # the proceedings version is cited; the preprint identifier is kept for readers
+    # the published version is cited; the preprint identifier is kept for readers
     "kanellopoulos2026finite": "Preprint: arXiv:2604.16030",
+    "fujiwara2026real": "Preprint: arXiv:2510.24068",
     # Elsevier asks for data references to be tagged [dataset] in the reference list.
     "cdnet2014": "[dataset]",
     "lasiesta2016": "[dataset]",
@@ -61,7 +62,16 @@ NOTE = {
 # elsarticle-num lowercases every title, so an acronym that is not brace-protected is printed
 # as ordinary prose: "dnn", "iot", "Splitstream", "ffd(i)". Runs of two or more capitals are
 # protected automatically; names whose capitalisation is internal have to be listed.
-PROTECT_WORDS = ["SplitStream", "CDnet", "IoT"]
+PROTECT_WORDS = ["SplitStream", "CDnet", "IoT", "InferFair", "PnG", "QoS", "AoI"]
+
+# Trademarks and proper nouns that the publisher's OWN metadata records in lower case, so
+# there is no capitalisation left for protect_caps to protect. Restoring it is a typographic
+# correction to a name, never a change of content: the mapping is from the exact lower-case
+# string Crossref returns to the registered spelling, and each one is listed explicitly so it
+# can be checked by eye.
+PROPER_NOUNS = {
+    "bluetooth low energy": "{Bluetooth} {Low} {Energy}",
+}
 
 _ACRONYM = re.compile(r"(?<![A-Za-z])([A-Z]{2,})(?![a-z])")
 _PAREN_CAP = re.compile(r"\(([A-Z])\)")
@@ -76,6 +86,8 @@ def protect_caps(title):
         if i % 2 == 1:                       # a $...$ segment
             out.append(seg)
             continue
+        for lower, proper in PROPER_NOUNS.items():
+            seg = re.sub(re.escape(lower), proper, seg, flags=re.I)
         for w in PROTECT_WORDS:
             seg = re.sub(r"(?<![{A-Za-z])" + w + r"(?![}A-Za-z])", "{" + w + "}", seg)
         seg = _ACRONYM.sub(lambda m: "{" + m.group(1) + "}", seg)
@@ -108,9 +120,13 @@ OVERRIDE = {
                 "series": "LNCS", "volume": "7728", "year": "2013"},
     # Crossref returns bare surnames for this record; the given names are on the article page.
     "fishburn2002densities": {"author": "Fishburn, Peter C. and Lagarias, Jeffrey C."},
+    # Crossref reports the volume as the free-text string "vol. 28:4, SOFSEM 2026 / Special
+    # issues"; split it into the slots the style expects. The journal is an overlay journal, so
+    # the article number is the only locator it has.
     "fujiwara2026real": {"_type": "article", "year": "2026",
                          "journal": "Discrete Mathematics \\& Theoretical Computer Science",
-                         "volume": "28", "number": "4", "howpublished": None},
+                         "volume": "28", "number": "4", "pages": "17657",
+                         "howpublished": None},
     "kawamura2026pnas": {"pages": "e2530214123"},
     # Crossref leaves this chapter's year empty; a sibling chapter of the same book
     # (ISBN 9783540744504, DOI 10.1007/978-3-540-74450-4_43) reports 2007. The volume is
@@ -176,17 +192,44 @@ def esc(s):
     return s
 
 
+def surname_first(name):
+    """Normalise one author name to BibTeX's unambiguous `Family, Given` form.
+
+    The two upstream sources disagree about the order they hand names back:
+
+      * the arXiv export API returns display order, "Hiroshi Fujiwara";
+      * DataCite (and Crossref) already return "Fujiwara, Hiroshi".
+
+    Flipping both produced "Hiroshi, Fujiwara" in the bibliography, i.e. the given name
+    printed as the surname. BibTeX cannot detect this -- "A, B" is *by definition* family A,
+    given B -- so it renders silently wrong, which is exactly the shape of error that gets a
+    submission desk-screened for unverifiable references. Decide by the comma, never by
+    position, and strip the stray trailing commas DataCite sometimes carries.
+    """
+    n = re.sub(r"\s+", " ", (name or "").strip()).strip(",").strip()
+    if not n:
+        return ""
+    if "," in n:
+        family, given = n.split(",", 1)                  # already Family, Given
+        family, given = family.strip(), given.strip()
+    else:
+        parts = n.split()
+        if len(parts) == 1:
+            return parts[0]
+        # everything after the given names is the surname; keep multi-word surnames together
+        # by treating lowercase particles (van, von, de, der, di, del, la) as part of it
+        i = len(parts) - 1
+        while i > 1 and parts[i - 1].islower():
+            i -= 1
+        family, given = " ".join(parts[i:]), " ".join(parts[:i])
+    return ("%s, %s" % (family, given)).strip().strip(",").strip() if given else family
+
+
 def authors_from(rec):
-    cr = rec["sources"].get("crossref")
-    if isinstance(cr, dict) and cr.get("authors"):
-        return " and ".join(esc(a) for a in cr["authors"])
-    ax = rec["sources"].get("arxiv")
-    if isinstance(ax, dict) and ax.get("authors"):
-        out = []
-        for a in ax["authors"]:
-            parts = esc(a).split()
-            out.append(parts[-1] + ", " + " ".join(parts[:-1]) if len(parts) > 1 else esc(a))
-        return " and ".join(out)
+    for key in ("crossref", "arxiv"):
+        src = rec["sources"].get(key)
+        if isinstance(src, dict) and src.get("authors"):
+            return " and ".join(esc(surname_first(a)) for a in src["authors"] if a)
     return ""
 
 
@@ -254,7 +297,14 @@ def main():
             f["title"] = protect_caps(f["title"])
         if f.get("journal"):
             f["journal"] = ltwa(f["journal"])
-        f["url"] = "https://doi.org/" + f["doi"]
+        # An entry that carries a DOI does NOT also get a `url`: elsarticle-num prints the DOI
+        # as a hyperlinked "doi:10.…", so adding https://doi.org/<same doi> makes every
+        # reference print the same identifier twice and costs most of a page. Entries with no
+        # DOI still need a URL, and keep one.
+        if not f.get("doi"):
+            f["url"] = f.get("url") or ""
+        else:
+            f.pop("url", None)
         body = ",\n".join("  %-12s = {%s}" % (k, v) for k, v in f.items()
                           if v not in (None, "", "None"))
         entries.append("@%s{%s,\n%s\n}\n" % (etype, key, body))

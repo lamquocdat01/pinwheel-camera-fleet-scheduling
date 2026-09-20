@@ -93,6 +93,71 @@ def build():
     return errs
 
 
+def author_fidelity_check(latex_dir, bib, control_bbl=None):
+    """R16: the surname printed for each reference's first author must be the surname the
+    verified metadata records.
+
+    BibTeX cannot catch this class of error. "A, B" *means* family A, given B, so a name
+    handed over in the wrong order renders silently and plausibly -- "F. Hiroshi" instead of
+    "H. Fujiwara" -- and the first thing a desk screen does is fail to find that author. The
+    check compares the rendered .bbl against refs_verified.json, and, where a control build
+    exists, against the surname that build printed for the same key.
+    """
+    path = os.path.join(latex_dir, "main.bbl")
+    if not os.path.exists(path):
+        return {"error": "no main.bbl", "pass": False}
+    bbl = re.sub(r"\s+", " ", open(path, encoding="utf-8", errors="replace").read())
+
+    def surname_of(field):
+        """Strip the initials from one rendered author field, leaving the surname.
+
+        elsarticle-num prints "H.~Fujiwara", and also "S.-S.~Lin" for a hyphenated given name
+        and "de~Queiroz" for a surname with a particle, so the initials cannot be matched
+        positionally -- they are removed by shape instead."""
+        s = field.replace("~", " ").replace("\\", " ")
+        s = re.sub(r"\b(?:[A-Z]\.)(?:-[A-Z]\.)*", " ", s)     # J.  /  J.-L.  /  K. G.
+        return re.sub(r"\s+", " ", s).strip(" .,")
+
+    def first_surname_rendered(key):
+        m = re.search(r"\\bibitem\{%s\}(.*?)(?=\\bibitem\{|\\end\{thebibliography\})"
+                      % re.escape(key), bbl, re.S)
+        if not m:
+            return None
+        body = m.group(1).lstrip()
+        first = body.split(",")[0]
+        return surname_of(first) or None
+
+    def first_surname_meta(rec):
+        for src in ("crossref", "arxiv"):
+            v = rec["sources"].get(src)
+            if isinstance(v, dict) and v.get("authors"):
+                n = v["authors"][0]
+                return (n.split(",")[0] if "," in n else n.split()[-1]).strip()
+        return None
+
+    control = {}
+    if control_bbl and os.path.exists(control_bbl):
+        cb = re.sub(r"\s+", " ", open(control_bbl, encoding="utf-8", errors="replace").read())
+        for m in re.finditer(r"\\bibitem\{([^}]+)\}([^,]+),", cb):
+            control[m.group(1)] = surname_of(m.group(2))
+
+    rows, bad, vs_control, control_bad = {}, [], 0, []
+    for key, rec in bib.items():
+        rendered, meta = first_surname_rendered(key), first_surname_meta(rec)
+        rows[key] = {"rendered": rendered, "metadata": meta}
+        if rendered and meta and rendered.lower() != meta.lower():
+            bad.append((key, rendered, meta))
+        if key in control and rendered:
+            vs_control += 1
+            if control[key].lower() != rendered.lower():
+                control_bad.append((key, rendered, control[key]))
+    return {"entries": len(rows), "mismatch_vs_metadata": bad,
+            "compared_against_control": vs_control,
+            "mismatch_vs_control": control_bad,
+            "control": os.path.basename(os.path.dirname(control_bbl or "")) or None,
+            "pass": not bad and not control_bad}
+
+
 def figure_text_size_check(latex_dir, min_pt=7.0):
     """R11: no text in a figure may print below `min_pt`.
 
@@ -211,7 +276,9 @@ def main():
     cited = sorted(bib)
     tail_ns = flat_ns[flat_ns.rfind("References"):] if "References" in flat_ns else flat_ns
     tail_ns = tail_ns.lower()
-    dois = {d.rstrip(".,;") for d in re.findall(r"doi\.org/([^\s]+?)(?=https|doi:|\[|$)", tail_ns)}
+    # count both printed forms: elsarticle-num renders "doi:10.…", and an entry with no DOI
+    # renders "URL https://…" instead
+    dois = set(re.findall(r"doi:(10\.[0-9]{4,}/[^\s]+?)(?=doi:|URL|http|\[|$)", tail_ns))
     missing = []
     for k, r in bib.items():
         d = (r["doi"] or "").lower()
@@ -309,6 +376,11 @@ def main():
     # R11 figure text legibility at the size the manuscript prints each figure.
     results["R11_figure_text_7pt"] = figure_text_size_check(LATEX)
 
+    # R16 first-author surnames on the rendered page match the verified metadata, cross-checked
+    # against the previous build for the references the two have in common.
+    results["R16_author_fidelity"] = author_fidelity_check(
+        LATEX, bib, os.path.join(TOPIC, "Submission_JNCA", "latex", "main.bbl"))
+
     # ---- FGCS gates ---------------------------------------------------------------
     title_m = re.search(r"\\title\{(.*?)\}\s*\n\s*\n", src, re.S) or \
         re.search(r"\\title\{((?:[^{}]|\{[^{}]*\})*)\}", src, re.S)
@@ -385,7 +457,8 @@ def main():
     GATES = ("R1_placeholders", "R2_identifiers", "R3_corpus_number",
              "R6_abstract_words", "R7_highlights", "R8_sections", "R9_overfull",
              "R10_no_type3_fonts", "R11_figure_text_7pt", "R12_community_keywords",
-             "R13_independence", "R14_fgcs_layout", "R15_front_matter")
+             "R13_independence", "R14_fgcs_layout", "R15_front_matter",
+             "R16_author_fidelity")
     ok = all(results[k]["pass"] for k in GATES)
     print("\n== RENDER CHECK on %s" % PDF)
     for k in GATES:

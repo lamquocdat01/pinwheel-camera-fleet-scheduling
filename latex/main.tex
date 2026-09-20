@@ -141,10 +141,12 @@ and $5/6$ cannot be improved without solving the instance.}}
 One addition decides admission. The operator never has to construct a schedule to know whether a
 fleet is feasible, and a camera can be admitted or refused online in $O(1)$ time. The
 sufficiency at $5/6$ is a recent result in scheduling theory \cite{kawamura2024stoc,kawamura2026pnas};
-the tightness is elementary and we prove it in Section~\ref{sec:capacity}. Our contribution is not
-that theorem but what an edge-video-analytics system can be built out of it, and what the
-guarantee costs once real event statistics, real model-switching costs and real escalation traffic
-are put back in.
+the tightness is elementary and we prove it in Section~\ref{sec:capacity}. Pinwheel scheduling
+itself has a long history in real-time systems, from distance-constrained tasks
+\cite{han1996distance} to age-of-information thresholds \cite{li2020aoi}; our contribution is
+not that theorem, nor the model, but what an edge-video-analytics system can be built out of
+them at the $5/6$ threshold, and what the guarantee costs once real event statistics, real
+model-switching costs and real escalation traffic are put back in.
 
 \paragraph{Contributions}
 \begin{enumerate}
@@ -198,26 +200,36 @@ $\{1,\dots,\Nc\}$ in which symbol $i$ appears at least once in every $\Ki$ conse
 Density at most $1$ is necessary; the sufficient thresholds improved from $1/2$
 \cite{holte1989pinwheel} through $7/10$ \cite{chanchin1993schedulers,chanchin1992general} and
 $3/4$ \cite{fishburn2002densities} to the conjectured and now proved $5/6$
-\cite{kawamura2024stoc,kawamura2026pnas}. Instances with two distinct windows are schedulable
-exactly when the density is at most $1$ \cite{holte1992two}, and with three distinct windows
-$5/6$ is both sufficient and tight \cite{linlin1997three}. Deciding an arbitrary instance is not
-possible in polynomial time under standard assumptions, although the problem is fixed-parameter
-tractable in the number of tasks \cite{kobayashi2025isaac}. Recent variants extend the model to
-real-valued periods \cite{fujiwara2026real}, to finitely many visits
-\cite{kanellopoulos2025kvisits,kanellopoulos2026finite}, to covering rather than packing
-\cite{kawamura2025covering}, and to tasks with durations \cite{kusano2026sofsem}; the related
-bamboo garden trimming problem \cite{gasieniec2024bamboo} studies the same structure under a
-growth objective. See also \cite{jacobs2014windows} for the windows-scheduling perspective.
+\cite{kawamura2024stoc,kawamura2026pnas}, which is tight already for three distinct windows
+\cite{linlin1997three}. Deciding an arbitrary instance is not possible in polynomial time under
+standard assumptions, though it is fixed-parameter tractable in the number of tasks
+\cite{kobayashi2026tcs}. Variants extend the model to real-valued periods
+\cite{fujiwara2026real}, to finitely many visits \cite{kanellopoulos2025kvisits}, to covering
+\cite{kawamura2025covering} and to tasks with durations \cite{kusano2026sofsem}.
 
-This literature is, without exception, theoretical. Its stated applications are satellite ground
-stations, machine maintenance, patrolling and packet scheduling. We are not aware of any prior
-work that instantiates it for camera scheduling or edge inference, and Table~\ref{tab:related}
-positions the present paper against the nearest systems work.
+Pinwheel scheduling has been applied in real-time systems before. It was introduced to
+schedule \emph{distance-constrained} tasks, whose consecutive executions must not be further
+apart than a fixed bound \cite{han1992distance,han1996distance}, and extended to end-to-end
+constraints across a distributed system \cite{hsueh2001distributed}. It has been used for
+fault-tolerant broadcast disks \cite{baruah1997broadcast} and, in sensing, for temporal-distance
+constraints on radar dwells \cite{gopalakrishnan2006radar}. The same combinatorial problem was
+also re-derived independently for maximum age-of-information thresholds, where the load
+$\sum_i 1/d_i$ plays exactly the role of our density and a $\ln 2\approx0.693$ bound is proved
+\cite{li2020aoi,li2022aoi}; that line of work does not use the name pinwheel.
+
+What has not been done, to the best of our knowledge, is to instantiate the model for
+multi-camera inference on a shared accelerator, or to combine it with the recently proved $5/6$
+threshold, with model-switch overheads, with multi-node dimensioning, or with window allocation
+driven by event statistics. Table~\ref{tab:related} positions the present paper against the
+nearest systems work.
 
 \begin{table*}[t]
 \centering\small
-\caption{Position of this paper. ``Capacity law'' means a closed-form test that decides how many
-streams fit without constructing a schedule.}
+\caption{Position of this paper. ``Capacity law'' names the test each work uses to decide
+whether a workload fits without first constructing a schedule. What distinguishes the present
+paper is not that no test exists elsewhere, but the combination of the unit guaranteed (a camera,
+not a job or an object), the tightness of the threshold, and the extensions to switch cost,
+budget shaping and multi-node dimensioning.}
 \label{tab:related}
 \footnotesize\setlength{\tabcolsep}{4pt}
 \begin{tabular}{llccc}
@@ -225,10 +237,12 @@ streams fit without constructing a schedule.}
 Work & Unit scheduled & Guarantee & Capacity law & $O(1)$ test \\
 \midrule
 SplitStream \cite{liang2024splitstream} & camera $\to$ node & avg.\ accuracy & no & no \\
-Multi-tenant DNN \cite{liu2026multitenant} & inference request & predictability & no & no \\
+DeepRT \cite{yang2021deeprt} & stream on one {GPU} & per-frame deadline & util.\ + simulation & no \\
+Canvas attention \cite{hu2024canvas} & object in a frame & inspection deadline & canvas area & no \\
 Attention sched.\ \cite{liu2023attention} & region in a frame & mean uncertainty & no & no \\
 RT GPU sched.\ \cite{zou2023rtgpu} & periodic job & job deadline & utilisation & no \\
-BLE mesh admission \cite{leonardi2025racble} & connection & non-overlap & no & yes \\
+{AoI} thresholds \cite{li2020aoi} & source & max-age window & $\ln 2$ & yes \\
+Distance-constrained \cite{han1996distance} & task & distance constraint & density & yes \\
 \textbf{This paper} & \textbf{camera in a fleet} & \textbf{refresh window} & $\bm{\dens\le5/6}$ & \textbf{yes} \\
 \bottomrule
 \end{tabular}
@@ -240,30 +254,44 @@ neighbours. IMC-PnG schedules imprecise mixed-criticality tasks while preserving
 guarantee \cite{lee2024imcpng}; InferFair gives QoS-aware scheduling with a performance-isolation
 guarantee for model serving \cite{peng2024inferfair}; response-time analysis has been extended to
 preemption-threshold scheduling \cite{zhang2026prta} and to parallel DNN workloads on
-GPUs \cite{zou2023rtgpu}; timing guarantees for embedded inference are surveyed
-in \cite{lee2025timing}; and adaptive heuristics place DNN inference across edge and cloud for
-drone fleets \cite{raj2025uavfleets}. Age-of-information scheduling enforces a hard staleness
-threshold under a load test \cite{li2022aoi}, the closest structural analogue we know. All of
-these bound the deadline or response time of a \emph{task}; we instead guarantee a \emph{coverage
-window} for each stream, and decide admission by an $O(1)$ density test.
+GPUs \cite{zou2023rtgpu}; open challenges for timing guarantees of AI inference in embedded
+systems are outlined in \cite{lee2025timing}; and adaptive heuristics place DNN inference across
+edge and cloud for drone fleets \cite{raj2025uavfleets}. Closest of all is age-of-information
+scheduling with maximum thresholds \cite{li2020aoi,li2022aoi}, which is the same combinatorial
+problem as ours under another name: each source must be served at least once in every $d_i$
+slots, the load is $\sum_i 1/d_i$, and a feasible schedule is constructed whenever that load is
+below $\ln 2$. The $5/6$ threshold is a strictly better density bound, and we add the
+model-switch, shaping and dimensioning results that a fleet of cameras needs. The remaining works
+bound the deadline or response time of a \emph{task}; we guarantee a \emph{coverage window} for
+each stream.
 
 \subsection{Edge video analytics and accelerator sharing}
 Edge video analytics systems optimise configuration, placement and offloading to maximise average
 accuracy or throughput under a latency budget; see \cite{zhou2023comst} for a survey. SplitStream
 \cite{liang2024splitstream} distributes multi-camera analytics across heterogeneous edge nodes with
-a workload-adaptive split, formulated as an NP-hard optimisation and solved heuristically. FlexDO
-\cite{queiroz2024flexdo} offloads DAG applications to edge resources with a flexible scheduling
-algorithm evaluated on production traces. Recent work on multi-tenant DNN inference for
+a workload-adaptive split, formulated as an NP-hard optimisation and solved heuristically.
+Nexus \cite{shen2019nexus} packs video-analysis sessions onto GPUs under latency objectives with
+a squishy bin-packing heuristic, and Gemel \cite{padmanabhan2023gemel} merges models to cut the
+swap cost of time-sharing one edge GPU between them --- the cost our Section~\ref{sec:switch}
+models as a switch penalty. Mainstream \cite{jiang2018mainstream} trades per-frame accuracy
+against sampling rate using an analytical model of event detection, the same trade our budget
+shaping formalises; it assumes an admission policy has already run and places that policy
+explicitly outside its scope. Recent work on multi-tenant DNN inference for
 autonomous-vehicle perception \cite{liu2026multitenant} shares one GPU among several perception
 streams and reduces fusion delay and its variability. Real-time GPU scheduling for DNN workloads
 \cite{zou2023rtgpu} provides response-time analysis for parallel tasks with hard deadlines.
 
-All of these optimise an \emph{average} objective or analyse \emph{job deadlines}. None of them
-answers ``how many cameras fit'' with a closed-form test, and none carries a per-camera
-worst-case coverage guarantee of the form we use. The distinction between a job deadline and a
-coverage window matters: a periodic task with a deadline guarantees that a job released at a known
-time completes on time, whereas an event in a video stream starts at an unknown phase, so what is
-needed is that \emph{every} window of $\Ki$ slots contains an inspection.
+Admission tests do exist in this space. DeepRT \cite{yang2021deeprt} shares one edge GPU
+between video streams and admits a request through a two-phase module: a utilisation condition
+that rejects the clearly infeasible, followed by an exact test that simulates the batching
+pipeline under earliest-deadline-first order. Canvas-based attention scheduling
+\cite{hu2024canvas} bounds inspection deadlines for objects within a frame against the area of a
+shared canvas. What distinguishes the guarantee studied here is its \emph{unit} and its
+\emph{form}: those systems guarantee a deadline for a job released at a known time --- a frame at
+a declared rate, an object already detected --- whereas an event in a video stream begins at an
+unknown phase, so the requirement is that \emph{every} window of $\Ki$ slots contains an
+inspection, for every camera. That requirement is decided here by one addition rather than by a
+simulation.
 
 \subsection{Attention scheduling for perception}
 The closest prior work in spirit is attention scheduling for embedded perception
@@ -274,17 +302,13 @@ only in passing: it does not use a density threshold and gives no capacity theor
 scheduling there is a region inside one image; ours is a camera inside a fleet.
 
 \subsection{Admission control and dimensioning in networked systems}
-Runtime admission control with a feasibility test is standard practice in real-time networking;
-a recent example admits new connections on a Bluetooth Low Energy mesh only when the resulting
-transmissions provably do not overlap \cite{leonardi2025racble}. Coverage guarantees with proved
-complexity bounds also appear in sensor-network deployment, for instance exact polynomial-time
-methods for $k$-strong barrier coverage \cite{binh2024barrier}, and periodic-interval design to
-attain a theoretical minimum discovery latency \cite{cheng2026cpbis}. Our contribution is of the
-same shape --- a feasibility test plus a construction plus a trace-driven evaluation --- applied
-to a resource, the shared inference accelerator, where it has not been available. Our
-dimensioning result uses the classical tight bound for first-fit-decreasing bin packing
-\cite{dosa2007ffd} only as a point of comparison; the bound we prove comes from a different route
-(Section~\ref{sec:dimensioning}).
+Runtime admission control with a feasibility test is standard practice in real-time networking
+and in distance-constrained task scheduling \cite{han1996distance,hsueh2001distributed}. Our
+contribution is of the same shape --- a feasibility test plus a construction plus a trace-driven
+evaluation --- applied to a resource, the shared inference accelerator, where it has not been
+available. Our dimensioning result uses the classical tight bound for first-fit-decreasing bin
+packing \cite{dosa2007ffd} only as a point of comparison; the bound we prove comes from a
+different route (Section~\ref{sec:dimensioning}).
 
 % =====================================================================================
 \section{System model and the refresh certificate}\label{sec:model}
@@ -387,6 +411,14 @@ Lemma~\ref{lem:transfer} is the bridge that makes the rest of the paper a schedu
 per-camera perception guarantee is exactly a per-camera coverage window, and the accelerator is a
 single server.
 
+The refresh property is a window constraint, and window constraints have a literature of their
+own: an $(m,k)$-firm deadline asks that $m$ of every $k$ consecutive jobs meet their deadline
+\cite{hamdaoui1995mkfirm}, and weakly-hard models generalise the pattern of permitted misses
+\cite{bernat2001weaklyhard}. Our requirement is the sliding-window case $m=1$, $k=\Ki$,
+applied to service rather than to completion. Those models express the constraint but supply
+no density test as tight as the one pinwheel theory gives, which is why we specialise to
+pinwheel rather than work in the general weakly-hard setting.
+
 \subsection{What happens to the events that are too short}\label{sec:lemma2}
 Certificates cover long events. In real surveillance corpora most events are short: in our corpus
 the median event lasts \numMedCdnet\ frames on CDnet2014, \numMedLasiesta\ on LASIESTA and
@@ -477,7 +509,7 @@ $\sum_i 2^{-\lfloor\log_2\Ki\rfloor}\le1$ --- in particular whenever $\dens(A)\l
 harmonic: the accelerator then reaches density $1$ with a trivial schedule and no $5/6$ margin is
 paid. A designer who must accept application-given windows gets $5/6$, and nothing better is
 available without solving the instance, which cannot be done in polynomial time under standard
-assumptions \cite{kobayashi2025isaac}. This is the same role that the utilisation bound plays for
+assumptions \cite{kobayashi2026tcs}. This is the same role that the utilisation bound plays for
 rate-monotonic scheduling \cite{liulayland1973}: a conservative, instantaneous, composable test
 that a system designer can actually use.
 
@@ -490,6 +522,15 @@ slots $t\equiv r_i \pmod{\hat K_i}$, so its gap is exactly $\hat K_i\le K_i$ and
 holds by construction. Because the $\hat K_i$ are powers of two they form a divisibility chain, so
 a free residue class exists whenever the rounded density is at most $1$
 (Proposition~\ref{prop:structured}(a)), and Algorithm~\ref{alg:admit} finds one in $O(M)$ time.
+
+Rounding windows down to powers of two and serving them periodically is not new: it is the
+classical specialisation that makes pinwheel instances constructible
+\cite{holte1989pinwheel}, and the same device underlies schedulers for distance-constrained
+tasks \cite{han1996distance}. What Algorithm~\ref{alg:admit} adds is the online form --- a
+residue bitmap that admits or releases a camera in $O(M)$ time without rebuilding the
+schedule --- and the use of that form as the admission rule itself, whose distance from the
+$5/6$ bound we then measure under churn (Section~\ref{sec:eval-churn}). The divisor wheel of
+Section~\ref{sec:wheel} is the part that goes beyond the classical construction.
 
 \begin{algorithm}[t]
 \caption{Admission and service on one edge box}
@@ -676,7 +717,7 @@ Partitioning the fleet into $q$ \emph{model groups}, so that switching inside a 
 recovers most of the loss: for a homogeneous window $K$ and $q\ge2$ groups, $\Nc+q\,s\le K$ is
 sufficient and $\Nc+(q-1)\,s\le K$ is necessary, a sandwich of width exactly $s$ slots. The two
 statements, their proofs and the exhaustive check that found no feasible configuration between
-them are in \ref{app:groups}. The design consequence is worth stating plainly: at $K=24$ and
+them are in the supplementary material (Supplement S1). The design consequence is worth stating plainly: at $K=24$ and
 $s=3$, giving every camera its own model allows $6$ cameras per box; two model groups allow $18$;
 one shared model allows $24$. Consolidating models buys more capacity than any scheduling
 improvement available here.
@@ -1025,6 +1066,10 @@ instance. We did \emph{not} implement the $7/10$ scheduler of \cite{chanchin1993
 $3/4$ scheduler of \cite{fishburn2002densities}. We attempted the former and stopped: the
 construction is not stated in a form we could reproduce faithfully from the sources available to
 us, and implementing a guessed version risks asserting a guarantee the code does not deliver.
+For reference, the power-of-two specialisation the residue wheel implements is itself limited to
+a rounded density of $1$, which costs up to a factor two in the worst case, and the analogous
+load bound proved for the age-of-information form of the problem is $\ln 2$
+\cite{li2020aoi}.
 Implementing either of them properly would narrow the gap measured in
 Sections~\ref{sec:eval-schedulability} and \ref{sec:eval-dimensioning} without changing any
 conclusion of this paper, and is the obvious next step. The divisor wheel is also restricted to
@@ -1081,10 +1126,10 @@ and we do not know whether a constructive algorithm can approach $\lceil 1.2\den
 % =====================================================================================
 \section{Conclusion}\label{sec:conclusion}
 
-An edge box that must guarantee, and not merely optimise, per-camera coverage has a capacity that
-can be written down: the sum of the reciprocals of the certificate windows must not exceed $5/6$,
-and nothing better is available without solving an intractable instance. Around that one line we
-built the pieces an operator needs --- an $O(1)$ admission test, a constructive scheduler that
+An edge node that must guarantee, and not merely optimise, per-camera coverage has a capacity
+that can be written down: the sum of the reciprocals of the certificate windows must not exceed
+$5/6$, and no better density-only test is available without solving an intractable instance.
+Around that one line we built the pieces an operator needs --- an $O(1)$ admission test, a constructive scheduler that
 holds the guarantee through camera churn, a water-filling rule for allocating the density budget
 across cameras with different event statistics, a fleet-dimensioning procedure within a factor two
 of optimal, and closed-form capacity reductions for model-switch cost and escalation blackouts.
@@ -1229,42 +1274,6 @@ We verified all four items on \numCfourTrials\ random profiles; the realised rat
 $m/\lceil\dens\rceil$ was \numCfourRatioMean\ on average and \numCfourRatioMax\ at worst.
 
 % =====================================================================================
-\section{Model groups}\label{app:groups}
-
-\begin{proposition}[model groups]\label{prop:groups}
-Partition the $\Nc$ cameras into $q\ge2$ \emph{model groups}; switching within a group is free and
-between groups costs $s$. With a homogeneous window $K$:
-\[
-\underbrace{\Nc+q\,s\le K}_{\text{sufficient}}
-\qquad\Longrightarrow\ \text{feasible}\ \Longrightarrow\qquad
-\underbrace{\Nc+(q-1)\,s\le K}_{\text{necessary}} .
-\]
-\end{proposition}
-
-The two conditions differ by exactly $s$ slots. We do not claim a characterisation, but we note
-the evidence: over \numCthreeQtwo\ exhaustively decided configurations with $q\ge2$, both
-conditions held without exception, and all \numCthreeBand\ configurations lying strictly between
-them were infeasible.
-
-\begin{proof}[Sufficiency]
-Use the block-cyclic schedule of period $P=\Nc+qs$: in each period, visit the groups in a fixed
-order, spending $s$ slots loading each group's model and then $|G_g|$ slots serving its cameras
-one after another at no switch cost. Every camera is served once per period at the same offset, so
-its gap is exactly $P\le K$.
-\end{proof}
-\begin{proof}[Necessity]
-Let $W$ be any window of $K$ consecutive slots. By the refresh property every camera is served in
-$W$, so $W$ contains at least $\Nc$ service slots and all $q$ groups appear in it. The sequence of
-services restricted to $W$ therefore contains at least $q-1$ group changes, and each of them costs
-$s$ slots lying between two services of $W$, hence inside $W$. Thus $K=|W|\ge \Nc+(q-1)s$.
-\end{proof}
-
-\noindent
-For heterogeneous windows the same block schedule gives the following sufficient condition: assign
-camera $i$ a multiplicity $m_i$ (a power of two), let group $g$ occupy a block of $L_g$ slots per
-period and $P\ge\sum_g(s+L_g)$; if $m_iP+L_g-1\le K_i$ for every $i\in G_g$ then every certificate
-holds.
-
 % =====================================================================================
 
 % =====================================================================================

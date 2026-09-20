@@ -47,11 +47,15 @@ BOOKTITLE = {
     "holte1989pinwheel": "Proceedings of the 22nd Hawaii International Conference on System Sciences (HICSS)",
     "kusano2026sofsem": "SOFSEM 2026: Theory and Practice of Computer Science, LNCS",
     "dosa2007ffd": "Combinatorics, Algorithms, Probabilistic and Experimental Methodologies (ESCAPE), LNCS 4614",
+    "yang2021deeprt": "Proceedings of the 6th ACM/IEEE Symposium on Edge Computing (SEC)",
 }
 NOTE = {
     # the published version is cited; the preprint identifier is kept for readers
     "kanellopoulos2026finite": "Preprint: arXiv:2604.16030",
     "fujiwara2026real": "Preprint: arXiv:2510.24068",
+    # The publisher DOI for this paper (10.1145/3453142.3491278) does not resolve, so the
+    # archival identifier that does is printed instead.
+    "yang2021deeprt": "Preprint: arXiv:2105.01803",
     # Elsevier asks for data references to be tagged [dataset] in the reference list.
     "cdnet2014": "[dataset]",
     "lasiesta2016": "[dataset]",
@@ -62,7 +66,7 @@ NOTE = {
 # elsarticle-num lowercases every title, so an acronym that is not brace-protected is printed
 # as ordinary prose: "dnn", "iot", "Splitstream", "ffd(i)". Runs of two or more capitals are
 # protected automatically; names whose capitalisation is internal have to be listed.
-PROTECT_WORDS = ["SplitStream", "CDnet", "IoT", "InferFair", "PnG", "QoS", "AoI"]
+PROTECT_WORDS = ["SplitStream", "CDnet", "IoT", "InferFair", "PnG", "QoS", "AoI", "DeepRT"]
 
 # Trademarks and proper nouns that the publisher's OWN metadata records in lower case, so
 # there is no capitalisation left for protect_caps to protect. Restoring it is a typographic
@@ -72,6 +76,29 @@ PROTECT_WORDS = ["SplitStream", "CDnet", "IoT", "InferFair", "PnG", "QoS", "AoI"
 PROPER_NOUNS = {
     "bluetooth low energy": "{Bluetooth} {Low} {Energy}",
 }
+
+# USENIX proceedings carry no DOI. These fields are transcribed from the publisher's own
+# landing page, which verify_refs.py fetches and checks for the expected title; the page URL
+# is what gets printed as the resolvable identifier.
+USENIX = {
+    "jiang2018mainstream": {
+        "title": "Mainstream: Dynamic Stem-Sharing for Multi-Tenant Video Processing",
+        "author": ("Jiang, Angela H. and Wong, Daniel L.-K. and Canel, Christopher and "
+                   "Tang, Lilia and Misra, Ishan and Kaminsky, Michael and "
+                   "Kozuch, Michael A. and Pillai, Padmanabhan and Andersen, David G. and "
+                   "Ganger, Gregory R."),
+        "booktitle": "2018 USENIX Annual Technical Conference (USENIX ATC 18)",
+        "pages": "29--42", "year": "2018"},
+    "padmanabhan2023gemel": {
+        "title": "Gemel: Model Merging for Memory-Efficient, Real-Time Video Analytics at the Edge",
+        "author": ("Padmanabhan, Arthi and Agarwal, Neil and Iyer, Anand and "
+                   "Ananthanarayanan, Ganesh and Shu, Yuanchao and Karianakis, Nikolaos and "
+                   "Xu, Guoqing Harry and Netravali, Ravi"),
+        "booktitle": "20th USENIX Symposium on Networked Systems Design and Implementation "
+                     "(NSDI 23)",
+        "pages": "973--994", "year": "2023"},
+}
+
 
 _ACRONYM = re.compile(r"(?<![A-Za-z])([A-Z]{2,})(?![a-z])")
 _PAREN_CAP = re.compile(r"\(([A-Z])\)")
@@ -103,11 +130,25 @@ OVERRIDE = {
     # Dagstuhl reports its proceedings title in `journal` ("LIPIcs, Volume 359, ISAAC 2025").
     # Split it into the BibTeX slots the style expects, so that the series and volume are
     # printed once, by format.bvolume, instead of twice. ISAAC 2025 is the 36th of the series.
-    "kobayashi2025isaac": {"_type": "inproceedings",
-                           "booktitle": "36th International Symposium on Algorithms and "
-                                        "Computation (ISAAC 2025)",
-                           "series": "LIPIcs", "volume": "359",
-                           "journal": None, "note": None},
+    # ESA 2026 reports its proceedings title in `journal` ("LIPIcs, Volume 388, ESA 2026")
+    "kawamura2025covering": {"_type": "inproceedings",
+                             "booktitle": "34th European Symposium on Algorithms (ESA 2026)",
+                             "series": "LIPIcs", "volume": "388", "pages": "83:1--83:7",
+                             "journal": None, "howpublished": None, "note": None},
+    # SIAM files SODA papers as book chapters; they are conference papers
+    # SIAM files SODA papers as book chapters; they are conference papers. Crossref stores
+    # the title with LaTeX maths in it ("the \(\text{k}\)-Visits Problem").
+    "kanellopoulos2025kvisits": {"_type": "inproceedings", "howpublished": None, "note": None,
+                                 "title": "Finite Pinwheel Scheduling: the $k$-Visits Problem"},
+    # Crossref stores only the short title for this one; the full title is on the DOI record
+    "shen2019nexus": {"_type": "inproceedings",
+                      "title": "Nexus: a GPU cluster engine for accelerating DNN-based "
+                               "video analysis"},
+    # Springer does not return the LNCS volume through Crossref
+    "kusano2026sofsem": {"series": "LNCS", "volume": "16448"},
+    # DeepRT: cite the conference version, print the identifier that resolves (see NOTE)
+    "yang2021deeprt": {"_type": "inproceedings", "year": "2021", "pages": "271--284",
+                       "booktitle": BOOKTITLE["yang2021deeprt"], "howpublished": None},
     # likewise for ICALP 2026 ("LIPIcs, Volume 374, ICALP 2026")
     "kanellopoulos2026finite": {"_type": "inproceedings",
                                 "booktitle": "International Colloquium on Automata, Languages, "
@@ -155,6 +196,8 @@ LTWA = {
     "Proceedings of the National Academy of Sciences": "Proc. Natl. Acad. Sci. U. S. A.",
     "Discrete Mathematics \\& Theoretical Computer Science": "Discrete Math. Theor. Comput. Sci.",
     "Algorithmica": "Algorithmica",
+    "IEEE Transactions on Computers": "IEEE Trans. Comput.",
+    "Real-Time Systems": "Real-Time Syst.",
 }
 
 _UNABBREVIATED = []
@@ -262,6 +305,18 @@ def main():
                 if cr.get("publisher"):
                     f["publisher"] = esc(cr["publisher"])
             f["doi"] = r["doi"]
+        elif ax is None and isinstance(r["sources"].get("landing_page"), dict):
+            # USENIX mints no DOI. The landing page was fetched and the expected title found
+            # on it by verify_refs.py; that page URL is the resolvable identifier printed.
+            lp = r["sources"]["landing_page"]
+            etype = "inproceedings"
+            f["title"] = esc(USENIX[key]["title"])
+            f["author"] = USENIX[key]["author"]
+            f["booktitle"] = USENIX[key]["booktitle"]
+            f["pages"] = USENIX[key]["pages"]
+            f["year"] = USENIX[key]["year"]
+            f["publisher"] = "USENIX Association"
+            f["url"] = lp["url"]
         elif ax is None:
             # only doi.org content negotiation answered: parse its BibTeX
             bt = r["sources"].get("doi.org") or ""

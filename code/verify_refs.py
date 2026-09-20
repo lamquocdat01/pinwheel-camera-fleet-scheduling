@@ -21,26 +21,22 @@ UA = {"User-Agent": "topic34-refcheck/1.0 (mailto:lamquocdat@gmail.com)"}
 REFS = [
     # --- pinwheel core -------------------------------------------------------
     ("holte1989pinwheel", "pinwheel", "10.1109/HICSS.1989.48075", None),
-    ("holte1992two", "two distinct numbers", "10.1016/0304-3975(92)90365-M", None),
     ("chanchin1992general", "double-integer reduction", "10.1109/12.144627", None),
     ("chanchin1993schedulers", "larger classes of pinwheel", "10.1007/BF01187034", None),
     ("linlin1997three", "three distinct numbers", "10.1007/PL00009181", None),
     ("fishburn2002densities", "achievable densities", "10.1007/s00453-002-0938-9", None),
     ("kawamura2024stoc", "density threshold conjecture", "10.1145/3618260.3649757", None),
     ("kawamura2026pnas", "density threshold conjecture", "10.1073/pnas.2530214123", None),
-    ("kobayashi2025isaac", "Fixed Parameter Tractability", "10.4230/LIPIcs.ISAAC.2025.47", None),
+    # the ISAAC 2025 paper now has a journal version, with a third author
+    ("kobayashi2026tcs", "fixed parameter tractability", "10.1016/j.tcs.2026.115998", None),
     ("kusano2026sofsem", "Density-Based Heuristics", "10.1007/978-3-032-17801-5_46", None),
     # Published in DMTCS since the last round (vol. 28:4, SOFSEM 2026 special issue,
     # article 17657); cite the journal version, keeping the arXiv identifier in the note.
     ("fujiwara2026real", "Real Periods", "10.46298/dmtcs.17657", None),
-    ("kanellopoulos2025kvisits", "k-Visits", None, "2507.11681"),
-    # published at ICALP 2026 (LIPIcs vol. 374) since the last round; cite the proceedings
-    # version, keeping the arXiv identifier in the note.
-    ("kanellopoulos2026finite", "Pinwheel Scheduling Variants",
-     "10.4230/LIPIcs.ICALP.2026.122", None),
-    ("kawamura2025covering", "Pinwheel Covering", None, "2510.06533"),
-    ("jacobs2014windows", "windows scheduling", None, "1410.7237"),
-    ("gasieniec2024bamboo", "Perpetual maintenance", "10.1016/j.jcss.2023.103476", None),
+    # published at SODA 2026 since the last round; cite the proceedings version
+    ("kanellopoulos2025kvisits", "Visits Problem", "10.1137/1.9781611978971.16", None),
+    # published at ESA 2026 (LIPIcs 388); Crossref does not index Dagstuhl, doi.org does
+    ("kawamura2025covering", "Pinwheel Covering", "10.4230/LIPIcs.ESA.2026.83", None),
     ("liulayland1973", "Hard-Real-Time", "10.1145/321738.321743", None),
     # --- bin packing (Cor. 3) ------------------------------------------------
     ("dosa2007ffd", "First Fit Decreasing", "10.1007/978-3-540-74450-4_1", None),
@@ -54,12 +50,29 @@ REFS = [
     ("zhang2026prta", "preemption threshold scheduling", "10.1016/j.future.2025.108363", None),
     ("lee2025timing", "Timing guarantees for inference", "10.1007/s11241-025-09445-9", None),
     ("li2022aoi", "Age of Information Guarantee", "10.1109/TNET.2022.3156866", None),
+    # --- pinwheel already applied in real-time systems and sensing (G1) ------
+    ("han1992distance", "distance-constrained", "10.1109/REAL.1992.242649", None),
+    ("han1996distance", "Distance-constrained scheduling", "10.1109/12.508320", None),
+    ("hsueh2001distributed", "distributed pinwheel", "10.1109/12.902752", None),
+    ("baruah1997broadcast", "broadcast disks", "10.1109/ICDE.1997.582023", None),
+    ("gopalakrishnan2006radar", "radar dwells", "10.1007/s11241-006-6882-z", None),
+    # --- the same problem re-derived as an age-of-information threshold (G4) --
+    ("li2020aoi", "Maximum Thresholds", "10.1109/INFOCOM41043.2020.9155514", None),
+    # --- systems with an admission test or a per-stream guarantee (G3) -------
+    # The ACM DOI for DeepRT (10.1145/3453142.3491278) does not resolve: doi.org, Crossref
+    # and the proceedings DOI all return 404. Cite the archival record that does resolve.
+    ("yang2021deeprt", "DeepRT", None, "2105.01803"),
+    ("hu2024canvas", "Canvas-Based Attention Scheduling", "10.1109/RTAS61025.2024.00035", None),
+    ("shen2019nexus", "Nexus", "10.1145/3341301.3359658", None),
+    ("jiang2018mainstream", "Mainstream", None, None,
+     "https://www.usenix.org/conference/atc18/presentation/jiang"),
+    ("padmanabhan2023gemel", "Gemel", None, None,
+     "https://www.usenix.org/conference/nsdi23/presentation/padmanabhan"),
+    # --- window-constrained real-time task models (G3) -----------------------
+    ("hamdaoui1995mkfirm", "firm deadlines", "10.1109/12.477249", None),
+    ("bernat2001weaklyhard", "Weakly hard", "10.1109/12.919277", None),
     # --- networked-systems admission control and coverage --------------------
     ("liang2024splitstream", "SplitStream", "10.1016/j.jnca.2024.103866", None),
-    ("queiroz2024flexdo", "offload DAG applications", "10.1016/j.jnca.2023.103791", None),
-    ("leonardi2025racble", "admission control", "10.1016/j.jnca.2025.104232", None),
-    ("binh2024barrier", "barrier coverage", "10.1016/j.jnca.2024.103985", None),
-    ("cheng2026cpbis", "discovery-latency", "10.1016/j.jnca.2026.104539", None),
     # --- edge video analytics / GPU sharing context -------------------------
     ("zhou2023comst", "Edge", "10.1109/COMST.2023.3323091", None),
     # the arXiv preprint (2101.10463) was published in IEEE TPDS 34(5), 2023; cite the journal
@@ -147,9 +160,30 @@ def slim(r):
 
 def main():
     out = {}
-    for key, frag, doi, aid in REFS:
-        rec = {"key": key, "expect_fragment": frag, "doi": doi, "arxiv": aid,
+    for entry in REFS:
+        # (key, fragment, doi, arxiv[, url]) -- USENIX proceedings mint no DOI, so those
+        # entries are verified by fetching the publisher's own landing page and finding the
+        # expected title on it.
+        key, frag, doi, aid = entry[:4]
+        url = entry[4] if len(entry) > 4 else None
+        rec = {"key": key, "expect_fragment": frag, "doi": doi, "arxiv": aid, "url": url,
                "status": "UNVERIFIED", "sources": {}}
+        if url and not doi and not aid:
+            try:
+                req = urllib.request.Request(url, headers={**UA, "Accept": "text/html"})
+                page = urllib.request.urlopen(req, timeout=45).read().decode("utf-8", "replace")
+                text = re.sub(r"<[^>]+>", " ", page)
+                text = re.sub(r"\s+", " ", html.unescape(text))
+                m = re.search(r"<title[^>]*>(.*?)</title>", page, re.S | re.I)
+                rec["sources"]["landing_page"] = {
+                    "url": url, "bytes": len(page),
+                    "title": re.sub(r"\s+", " ", html.unescape(m.group(1))).strip() if m else None,
+                    "found_fragment": frag.lower() in text.lower()}
+                if rec["sources"]["landing_page"]["found_fragment"]:
+                    rec["status"] = "OK"
+            except Exception as e:
+                rec["sources"]["landing_page"] = "ERR " + str(e)
+            time.sleep(PAUSE)
         if doi:
             try:
                 rec["sources"]["crossref"] = slim(fetch_crossref(doi))

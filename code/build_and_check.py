@@ -93,6 +93,48 @@ def build():
     return errs
 
 
+def last_page_fill(pdf, pages):
+    """How far down the final page the text reaches, as a fraction of page height.
+
+    Editorial Manager rebuilds the PDF from source, so a manuscript whose last page is nearly
+    full can spill onto one more page there. Measuring that headroom needs care: the page
+    number sits in the bottom margin of every page, so a naive "last row with ink" scan always
+    returns the folio. The folio band is located from a full page first, then ignored.
+    """
+    import glob, tempfile, shutil
+    try:
+        from PIL import Image
+    except Exception:
+        return {"available": False, "reason": "PIL not installed"}
+    if not pages or pages < 2:
+        return {"available": False, "reason": "need at least two pages"}
+    tmp = tempfile.mkdtemp(prefix="lastpage_")
+    try:
+        subprocess.run([tex("pdftoppm"), "-png", "-r", "100", "-f", str(pages - 1),
+                        "-l", str(pages), pdf, os.path.join(tmp, "pg")], capture_output=True)
+        shots = sorted(glob.glob(os.path.join(tmp, "pg-*.png")))
+        if len(shots) < 2:
+            return {"available": False, "reason": "could not rasterise"}
+
+        def ink_rows(path):
+            im = Image.open(path).convert("L")
+            w, h = im.size
+            px = im.load()
+            return [y for y in range(h) if min(px[x, y] for x in range(0, w, 3)) < 200], h
+
+        full, h = ink_rows(shots[0])
+        last, _ = ink_rows(shots[-1])
+        band = [r for r in full if r > 0.88 * h]
+        folio_top = min(band) if band else h
+        body_last = max([r for r in last if r < folio_top] or [0])
+        return {"available": True,
+                "text_ends_pct": round(100.0 * body_last / h, 1),
+                "blank_tail_pct": round(100.0 * (folio_top - body_last) / h, 1),
+                "folio_band_pct": round(100.0 * folio_top / h, 1)}
+    finally:
+        shutil.rmtree(tmp, ignore_errors=True)
+
+
 def author_fidelity_check(latex_dir, bib, control_bbl=None):
     """R16: the surname printed for each reference's first author must be the surname the
     verified metadata records.
@@ -279,15 +321,29 @@ def main():
     # count both printed forms: elsarticle-num renders "doi:10.…", and an entry with no DOI
     # renders "URL https://…" instead
     dois = set(re.findall(r"doi:(10\.[0-9]{4,}/[^\s]+?)(?=doi:|URL|http|\[|$)", tail_ns))
+    # Only entries that are actually cited reach the bibliography; an unused candidate in
+    # refs_verified.json is not a missing identifier. Read the citation keys off the .bbl.
+    bbl_path = os.path.join(LATEX, "main.bbl")
+    cited = set()
+    if os.path.exists(bbl_path):
+        cited = set(re.findall(r"\\bibitem\{([^}]+)\}",
+                               open(bbl_path, encoding="utf-8", errors="replace").read()))
     missing = []
     for k, r in bib.items():
+        if cited and k not in cited:
+            continue
         d = (r["doi"] or "").lower()
         ax = r["sources"].get("arxiv")
         if not d and isinstance(ax, dict) and ax.get("doi"):
             d = ax["doi"].lower()
-        if not d:
+        if not d and r.get("arxiv"):
             d = ("10.48550/arxiv." + str(r["arxiv"])).lower()
-        if d.replace(" ", "") not in tail_ns:
+        if not d:
+            # no DOI is minted for this venue (USENIX): the landing page URL is the identifier
+            lp = r["sources"].get("landing_page")
+            d = (lp.get("url") if isinstance(lp, dict) else r.get("url")) or ""
+            d = d.lower().replace("https://", "").replace("http://", "")
+        if not d or d.replace(" ", "") not in tail_ns:
             missing.append((k, d))
     results["R2_identifiers"] = {"entries": len(bib), "printed_on_page": len(dois),
                                  "missing": missing, "pass": len(missing) == 0}
@@ -424,8 +480,9 @@ def main():
 
     # R14 the FGCS length and layout gate. 18 pages is a hard editorial limit.
     two_col = "twocolumn" in src and "\\documentclass" in src
+    fill = last_page_fill(PDF, n_pages)
     results["R14_fgcs_layout"] = {
-        "pages": n_pages, "page_limit": 18,
+        "pages": n_pages, "page_limit": 18, "last_page": fill,
         "two_column": two_col,
         "line_numbers": bool(re.search(r"^\s*\\linenumbers", src, re.M)),
         "single_spaced": not re.search(r"\\(onehalfspacing|doublespacing|setstretch)", src),
